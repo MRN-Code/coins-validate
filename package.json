@@ -1,0 +1,14 @@
+{
+  "name": "coins-validate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "git-validate": "2.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+  },
+  "author": "cdaringe",
+  "license": "ISC"
+}
