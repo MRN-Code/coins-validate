@@ -1,8 +1,12 @@
 {
   "name": "coins-validate",
   "version": "1.0.0",
-  "description": "",
+  "description": "configures a package to fall inline with coins standards",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdaringe/coins-validate.git"
+  },
   "dependencies": {
     "git-validate": "2.1.4"
   },
