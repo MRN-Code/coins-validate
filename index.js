@@ -9,3 +9,4 @@ validate.installScript('preversion', 'git checkout master && git pull && npm ls'
 validate.installScript('publish-patch', 'npm run preversion && npm version patch && git push origin master --tags && npm publish');
 validate.installScript('publish-minor', 'npm run preversion && npm version minor && git push origin master --tags && npm publish');
 validate.installScript('publish-major', 'npm run preversion && npm version major && git push origin master --tags && npm publish');
+validate.installHooks(['pre-commit', 'validate', 'lint', 'test']);
