@@ -12,7 +12,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "install": "node index.js"
+    "install": "node index.js",
+    "publish-patch": "npm run preversion && npm version patch && git push origin master --tags && npm publish",
+    "publish-minor": "npm run preversion && npm version minor && git push origin master --tags && npm publish",
+    "publish-major": "npm run preversion && npm version major && git push origin master --tags && npm publish"
   },
   "author": "cdaringe",
   "license": "ISC"
