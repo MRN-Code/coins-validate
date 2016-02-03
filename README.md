@@ -6,6 +6,6 @@ applies coins formatting and pre-commit rules to packages.
 
 # usage
 
-`npm i --save coins-validate@latest`
+`npm i --save-dev coins-validate@latest`
 
 always use latest to assert that coins repos always follow our latest spec
