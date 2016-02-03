@@ -8,6 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
+      "install": "node index.js"
   },
   "author": "cdaringe",
   "license": "ISC"

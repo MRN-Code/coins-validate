@@ -1,4 +1,5 @@
 var validate = require('git-validate');
+console.log('installing coins-validate hooks into your project...')
 validate.copy('templates/.jshintrc', '.jshintrc');
 validate.copy('templates/.jscscrc', '.jscsrc');
 validate.installScript('lint', 'jscs .');
