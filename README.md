@@ -3,7 +3,7 @@
 COINS implementation of nfl's [git-validate](https://github.com/nlf/git-validate)
 
 Specifically, this package does the following to your project:
-  - installs common npm scripts (e.g. `"test": "node test/", "validate": "npm ls"`) applies coins
+  - installs common npm scripts (e.g. `"test": "node test/", "validate": "npm ls"`)
   - installs common pre-commit hooks (e.g. lint, test, docs)
   - installs packages that required for the above tasks to be successful
 
