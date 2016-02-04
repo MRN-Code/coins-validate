@@ -1,13 +1,13 @@
 var validate = require('git-validate');
 var validateUtils = require('git-validate/lib/utils');
-var execSync = require('child_process').execSync;
+var exec = require('child_process').exec;
 var packages = [
     'gh-pages',
     'jsdoc',
     'jshint',
     'jscs',
 ];
-console.log('installing coins-validate hooks into your project...');
+console.log('installing coins-validate hooks and scripts into your project...');
 validate.copy('templates/.jshintrc', '.jshintrc');
 validate.copy('templates/.jscscrc', '.jscsrc');
 validate.installScript('lint', 'jscs .');
@@ -24,4 +24,11 @@ validate.installHooks('pre-commit');
 validate.configureHook('pre-commit', ['validate', 'lint', 'test', 'docs']);
 
 var root = validateUtils.findProjectRoot();
-execSync('npm install --save-dev ' + packages.join(' '));
+console.log('installing coins-* ecosystem dep pkgs into your project...');
+var install = exec('npm install --save-dev ' + packages.join(' '), { cwd: root }, function(err, rslt) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log(stdout);
+});
