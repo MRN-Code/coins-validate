@@ -1,7 +1,7 @@
 var validate = require('git-validate');
 var validateUtils = require('git-validate/lib/utils');
 var path = require('path');
-var exec = require('child_process').exec;
+var cp = require('child_process');
 var root = validateUtils.findProjectRoot();
 var packages = [
     'gh-pages',
@@ -12,6 +12,8 @@ var packages = [
 
 var projPkg = require(path.resolve(root, 'package.json'));
 console.log('installing coins-validate hooks and scripts into your project...');
+
+cp.execSync('rm -f .jshintrc .jscsrc', { cwd: root });
 validate.copy('templates/.jshintrc', '.jshintrc');
 validate.copy('templates/.jscsrc', '.jscsrc');
 if (!projPkg.scripts || !projPkg.scripts['lint']) validate.installScript('lint', 'jscs .');
@@ -29,7 +31,7 @@ validate.configureHook('pre-commit', ['validate', 'lint', 'test', 'docs']);
 
 // installs packages into root project package
 var installDev = function(packages) {
-    exec('npm install --save-dev ' + packages.join(' '), { cwd: root }, function(err, stdout, stderr) {
+    cp.exec('npm install --save-dev ' + packages.join(' '), { cwd: root }, function(err, stdout, stderr) {
         if (err) {
             console.error(err);
             return;
