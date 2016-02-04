@@ -39,7 +39,7 @@ var installDev = function(packages) {
 };
 
 getMissingDevDependencies = function(packages) {
-    if (!pkg.devDependencies) {
+    if (!projPkg.devDependencies) {
         return packages;
     }
     if (!packages || !packages.hasOwnProperty('length')) {
