@@ -13,7 +13,7 @@ var packages = [
 var projPkg = require(path.resolve(root, 'package.json'));
 console.log('installing coins-validate hooks and scripts into your project...');
 validate.copy('templates/.jshintrc', '.jshintrc');
-validate.copy('templates/.jscscrc', '.jscsrc');
+validate.copy('templates/.jscsrc', '.jscsrc');
 if (!projPkg.scripts || !projPkg.scripts['lint']) validate.installScript('lint', 'jscs .');
 if (!projPkg.scripts || !projPkg.scripts['postlint']) validate.installScript('postlint', 'jshint .');
 if (!projPkg.scripts || !projPkg.scripts['validate']) validate.installScript('validate', 'npm ls');
