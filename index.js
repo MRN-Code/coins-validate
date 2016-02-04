@@ -25,7 +25,7 @@ validate.configureHook('pre-commit', ['validate', 'lint', 'test', 'docs']);
 
 var root = validateUtils.findProjectRoot();
 console.log('installing coins-* ecosystem dep pkgs into your project...');
-var install = exec('npm install --save-dev ' + packages.join(' '), { cwd: root }, function(err, rslt) {
+var install = exec('npm install --save-dev ' + packages.join(' '), { cwd: root }, function(err, stdout, stderr) {
     if (err) {
         console.error(err);
         return;
