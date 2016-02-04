@@ -1,7 +1,7 @@
 var validate = require('git-validate');
 var validateUtils = require('git-validate/lib/utils');
 var execSync = require('child_process').execSync;
-var pacakges: [
+var pacakges = [
     'gh-pages',
     'jsdoc',
     'jshint',
