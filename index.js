@@ -1,5 +1,6 @@
 var validate = require('git-validate');
 var validateUtils = require('git-validate/lib/utils');
+var path = require('path');
 var exec = require('child_process').exec;
 var root = validateUtils.findProjectRoot();
 var packages = [
