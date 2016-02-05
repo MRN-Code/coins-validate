@@ -17,7 +17,9 @@ console.log('installing coins-validate hooks and scripts into your project...');
 cp.execSync('rm -f .jshintrc .jscsrc', { cwd: root });
 validate.copy('templates/.jshintrc', '.jshintrc');
 validate.copy('templates/.jscsrc', '.jscsrc');
+
 if (!projPkg.scripts || !projPkg.scripts['lint']) validate.installScript('lint', 'jscs ' + lintDirs);
+if (!projPkg.scripts || !projPkg.scripts['lintfix']) validate.installScript('lintfix', 'jscs --fix ' + lintDirs);
 if (!projPkg.scripts || !projPkg.scripts['postlint']) validate.installScript('postlint', 'jshint ' + lintDirs);
 if (!projPkg.scripts || !projPkg.scripts['validate']) validate.installScript('validate', 'npm ls');
 if (!projPkg.scripts || !projPkg.scripts['preversion']) validate.installScript('preversion', 'git checkout master && git pull && npm ls');
