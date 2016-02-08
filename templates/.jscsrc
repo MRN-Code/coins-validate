@@ -11,5 +11,5 @@
     "disallowSpacesInFunction": {
         "beforeOpeningRoundBrace": true,
         "beforeopeningCurlyBrace": false
-    },
+    }
 }
