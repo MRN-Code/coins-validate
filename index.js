@@ -25,12 +25,12 @@ if (!projPkg.scripts || !projPkg.scripts['validate']) validate.installScript('va
 if (!projPkg.scripts || !projPkg.scripts['preversion']) validate.installScript('preversion', 'git checkout master && git pull && npm ls');
 if (!projPkg.scripts || !projPkg.scripts['docs']) validate.installScript('docs', 'jsdoc -d docs -r -R README.md src/ && git add docs/*');
 if (!projPkg.scripts || !projPkg.scripts['deploy-docs']) validate.installScript('deploy-docs', 'gh-pages -d docs');
-if (!projPkg.scripts || !projPkg.scripts['postpublish']) validate.installScript('postpublish', 'npm run deploy-docs');
+if (!projPkg.scripts || !projPkg.scripts['postpublish']) validate.installScript('postpublish', 'npm run docs && npm run deploy-docs');
 if (!projPkg.scripts || !projPkg.scripts['publish-patch']) validate.installScript('publish-patch', 'npm run preversion && npm version patch && git push origin master --tags && npm publish');
 if (!projPkg.scripts || !projPkg.scripts['publish-minor']) validate.installScript('publish-minor', 'npm run preversion && npm version minor && git push origin master --tags && npm publish');
 if (!projPkg.scripts || !projPkg.scripts['publish-major']) validate.installScript('publish-major', 'npm run preversion && npm version major && git push origin master --tags && npm publish');
 validate.installHooks('pre-commit');
-validate.configureHook('pre-commit', ['validate', 'lint', 'test', 'docs']);
+validate.configureHook('pre-commit', ['validate', 'lint', 'test']);
 
 // installs packages into root project package
 var installDev = function(packages) {
