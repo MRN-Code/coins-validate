@@ -23,7 +23,7 @@ if (!projPkg.scripts || !projPkg.scripts['lintfix']) validate.installScript('lin
 if (!projPkg.scripts || !projPkg.scripts['postlint']) validate.installScript('postlint', 'jshint ' + lintDirs);
 if (!projPkg.scripts || !projPkg.scripts['validate']) validate.installScript('validate', 'npm ls');
 if (!projPkg.scripts || !projPkg.scripts['preversion']) validate.installScript('preversion', 'git checkout master && git pull && npm ls');
-if (!projPkg.scripts || !projPkg.scripts['docs']) validate.installScript('docs', 'jsdoc -d docs -r -R README.md src/ && git add docs/*');
+if (!projPkg.scripts || !projPkg.scripts['docs']) validate.installScript('docs', 'jsdoc -d docs -r -R README.md src/ && git add docs/* && git commit -m \'stage docs\' && git push);
 if (!projPkg.scripts || !projPkg.scripts['deploy-docs']) validate.installScript('deploy-docs', 'gh-pages -d docs');
 if (!projPkg.scripts || !projPkg.scripts['postpublish']) validate.installScript('postpublish', 'npm run docs && npm run deploy-docs');
 if (!projPkg.scripts || !projPkg.scripts['publish-patch']) validate.installScript('publish-patch', 'npm run preversion && npm version patch && git push origin master --tags && npm publish');
