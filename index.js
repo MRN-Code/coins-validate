@@ -9,7 +9,7 @@ var packages = [
     'jshint',
     'jscs',
 ];
-var lintDirs = 'src/**/*.js test/**/*.js';
+var lintDirs = 'src/ test/';
 
 var projPkg = require(path.resolve(root, 'package.json'));
 console.log('installing coins-validate hooks and scripts into your project...');
