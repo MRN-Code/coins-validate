@@ -4,6 +4,7 @@ var path = require('path');
 var cp = require('child_process');
 var root = validateUtils.findProjectRoot();
 var packages = [
+    'istanbul',
     'gh-pages',
     'jsdoc',
     'jshint',
@@ -18,7 +19,7 @@ cp.execSync('rm -f .jshintrc .jscsrc', { cwd: root });
 validate.copy('templates/.jshintrc', '.jshintrc');
 validate.copy('templates/.jscsrc', '.jscsrc');
 
-if (!projPkg.scripts || !projPkg.scripts['test']) validate.installScript('test', 'node test/');
+if (!projPkg.scripts || !projPkg.scripts['test']) validate.installScript('test', 'istanbul cover test/');
 if (!projPkg.scripts || !projPkg.scripts['lint']) validate.installScript('lint', 'jscs ' + lintDirs);
 if (!projPkg.scripts || !projPkg.scripts['lintfix']) validate.installScript('lintfix', 'jscs --fix ' + lintDirs);
 if (!projPkg.scripts || !projPkg.scripts['postlint']) validate.installScript('postlint', 'jshint ' + lintDirs);
