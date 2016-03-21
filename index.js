@@ -47,9 +47,9 @@ const scripts = {
 var scriptValue;
 for (var scriptKey in scripts) {
   if (scripts.hasOwnProperty(scriptKey)) {
-    scriptValue = scripts[scriptValue];
+    scriptValue = scripts[scriptKey];
     if (!pkgJSON.scripts[scriptKey]) {
-      pkgJSON.scripts[scriptKey] = scriptValue;
+      validate.installScript(scriptKey, scriptValue);
     }
   }
 }
