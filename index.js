@@ -19,6 +19,7 @@ const pkgJSON = require(path.resolve(root, 'package.json'));
 console.log('installing coins-validate hooks and scripts into your project...');
 
 cp.execSync('rm -f .eslint* .jshintrc .jscsrc', { cwd: root });
+validate.copy('templates/.eslintrc.js', '.eslintrc.js');
 
 if (!pkgJSON.scripts) {
   pkgJSON.scripts = {};
