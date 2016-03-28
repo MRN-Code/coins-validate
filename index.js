@@ -4,6 +4,11 @@ const validateUtils = require('git-validate/lib/utils');
 const path = require('path');
 const cp = require('child_process');
 const root = validateUtils.findProjectRoot();
+
+if (process.cwd().match(/node_modules/)) {
+  console.log('bypassing coins-validate: installing as sub-dependency');
+}
+
 const devPackages = [
   'eslint',
   'eslint-config-airbnb',
