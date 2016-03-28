@@ -1,64 +1,93 @@
-var validate = require('git-validate');
-var validateUtils = require('git-validate/lib/utils');
-var path = require('path');
-var cp = require('child_process');
-var root = validateUtils.findProjectRoot();
-var packages = [
-    'gh-pages',
-    'jsdoc',
-    'jshint',
-    'jscs',
+'use strict';
+const validate = require('git-validate');
+const validateUtils = require('git-validate/lib/utils');
+const path = require('path');
+const cp = require('child_process');
+const root = validateUtils.findProjectRoot();
+const devPackages = [
+  'eslint',
+  'eslint-config-airbnb',
+  'eslint-plugin-react',
+  'gh-pages',
+  'jsdoc',
+  'istanbul',
+  'minami'
 ];
-var lintDirs = 'src/**/*.js test/**/*.js';
+const lintDirs = 'src/ test/';
+const pkgJSON = require(path.resolve(root, 'package.json'));
 
-var projPkg = require(path.resolve(root, 'package.json'));
 console.log('installing coins-validate hooks and scripts into your project...');
 
-cp.execSync('rm -f .jshintrc .jscsrc', { cwd: root });
-validate.copy('templates/.jshintrc', '.jshintrc');
-validate.copy('templates/.jscsrc', '.jscsrc');
+cp.execSync('rm -f .eslint* .jshintrc .jscsrc', { cwd: root });
+validate.copy('templates/.eslintrc.js', '.eslintrc.js');
 
-if (!projPkg.scripts || !projPkg.scripts['lint']) validate.installScript('lint', 'jscs ' + lintDirs);
-if (!projPkg.scripts || !projPkg.scripts['lintfix']) validate.installScript('lintfix', 'jscs --fix ' + lintDirs);
-if (!projPkg.scripts || !projPkg.scripts['postlint']) validate.installScript('postlint', 'jshint ' + lintDirs);
-if (!projPkg.scripts || !projPkg.scripts['validate']) validate.installScript('validate', 'npm ls');
-if (!projPkg.scripts || !projPkg.scripts['preversion']) validate.installScript('preversion', 'git checkout master && git pull && npm ls');
-if (!projPkg.scripts || !projPkg.scripts['docs']) validate.installScript('docs', 'jsdoc -d docs -r -R README.md src/ && git add docs/*');
-if (!projPkg.scripts || !projPkg.scripts['deploy-docs']) validate.installScript('deploy-docs', 'gh-pages -d docs');
-if (!projPkg.scripts || !projPkg.scripts['postpublish']) validate.installScript('postpublish', 'npm run deploy-docs');
-if (!projPkg.scripts || !projPkg.scripts['publish-patch']) validate.installScript('publish-patch', 'npm run preversion && npm version patch && git push origin master --tags && npm publish');
-if (!projPkg.scripts || !projPkg.scripts['publish-minor']) validate.installScript('publish-minor', 'npm run preversion && npm version minor && git push origin master --tags && npm publish');
-if (!projPkg.scripts || !projPkg.scripts['publish-major']) validate.installScript('publish-major', 'npm run preversion && npm version major && git push origin master --tags && npm publish');
-validate.installHooks('pre-commit');
-validate.configureHook('pre-commit', ['validate', 'lint', 'test', 'docs']);
-
-// installs packages into root project package
-var installDev = function(packages) {
-    cp.exec('npm install --save-dev ' + packages.join(' '), { cwd: root }, function(err, stdout, stderr) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log(stdout);
-    });
-};
-
-getMissingDevDependencies = function(packages) {
-    if (!projPkg.devDependencies) {
-        return packages;
-    }
-    if (!packages || !packages.hasOwnProperty('length')) {
-        console.warn('no requested devDependency packages detected');
-    }
-    return packages.filter(function(pkg) {
-        return !(projPkg.devDependencies && projPkg.devDependencies[pkg]);
-    });
+if (!pkgJSON.scripts) {
+  pkgJSON.scripts = {};
 }
 
-var toInstall = getMissingDevDependencies(packages);
-if (toInstall && toInstall.length) {
-    console.log('installing coins-* ecosystem dep pkgs into your project...');
-    installDev(toInstall);
+const scripts = {
+  'test': 'istanbul cover test/',
+  'lint': 'eslint ' + lintDirs,
+  'lintfix': 'eslint --fix ' + lintDirs,
+  'validate': 'npm ls',
+  'preversion': 'git checkout master && git pull && npm ls',
+  'docs': [
+    'mkdir -p docs &&',
+    'jsdoc -t ./node_modules/minami -d docs -R README.md -r src/'
+  ].join(' '),
+  'deploy-docs': 'gh-pages -d docs && rm -rf docs',
+  'postpublish': 'npm run docs && npm run deploy-docs',
+  'publish-patch': 'npm run preversion && npm version patch && git push origin master --tags && npm publish',
+  'publish-minor': 'npm run preversion && npm version minor && git push origin master --tags && npm publish',
+  'publish-major': 'npm run preversion && npm version major && git push origin master --tags && npm publish',
+};
+
+// add scripts if they do not already exist
+// user edits to scripts will _not_ be squashed
+var scriptValue;
+for (var scriptKey in scripts) {
+  if (scripts.hasOwnProperty(scriptKey)) {
+    scriptValue = scripts[scriptKey];
+    if (!pkgJSON.scripts[scriptKey]) {
+      validate.installScript(scriptKey, scriptValue);
+    }
+  }
+}
+
+validate.installHooks('pre-commit');
+validate.configureHook('pre-commit', [ 'validate', 'lint', 'test' ]);
+
+// install packages into root project package
+const installDev = (packages) => {
+  cp.exec(
+    'npm install --save-dev ' + packages.join(' '),
+    { cwd: root },
+    (err, stdout, stderr) => {
+      if (err) {
+          console.error(err);
+          return;
+      }
+      console.log(stdout);
+    }
+  );
+};
+
+const getMissingDevDependencies = (packages) => {
+  if (!pkgJSON.devDependencies) {
+      return packages;
+  }
+  if (!packages || !packages.hasOwnProperty('length')) {
+      console.warn('no requested devDependency packages detected');
+  }
+  return packages.filter(function(pkg) {
+      return !(pkgJSON.devDependencies && pkgJSON.devDependencies[pkg]);
+  });
+}
+
+const toInstallDev = getMissingDevDependencies(devPackages);
+if (toInstallDev && toInstallDev.length) {
+  console.log('installing coins-* ecosystem dep pkgs into your project...');
+  installDev(toInstallDev);
 } else {
-    console.log('project has all coins-* dev packages installed :)');
+  console.log('project has all coins-* dev packages installed :)');
 }
