@@ -2,7 +2,7 @@
   "name": "coins-validate",
   "version": "2.0.6",
   "description": "configures a package to fall inline with coins standards",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cdaringe/coins-validate.git"
@@ -17,14 +17,22 @@
     "gh-pages": "^0.11.0",
     "istanbul": "^0.4.2",
     "jsdoc": "^3.4.0",
-    "minami": "^1.1.1"
+    "minami": "^1.1.1",
+    "tape": "^4.5.1"
   },
   "scripts": {
-    "install": "node index.js",
+    "install": "node src/index.js",
     "preversion": "git checkout master && git pull && npm ls",
     "publish-patch": "npm run preversion && npm version patch && git push origin master --tags && npm publish",
     "publish-minor": "npm run preversion && npm version minor && git push origin master --tags && npm publish",
-    "publish-major": "npm run preversion && npm version major && git push origin master --tags && npm publish"
+    "publish-major": "npm run preversion && npm version major && git push origin master --tags && npm publish",
+    "test": "node test/",
+    "lint": "eslint src/ test/",
+    "lintfix": "eslint --fix src/ test/",
+    "validate": "npm ls",
+    "docs": "mkdir -p docs && jsdoc -t ./node_modules/minami -d docs -R README.md -r src/",
+    "deploy-docs": "gh-pages -d docs && rm -rf docs",
+    "postpublish": "npm run docs && npm run deploy-docs"
   },
   "author": "cdaringe",
   "license": "ISC",
