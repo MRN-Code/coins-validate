@@ -23,6 +23,7 @@ const devPackages = [
 console.log('installing coins-validate hooks and scripts into your project...'); // eslint-disable-line
 clean(root);
 copyIfMissing('.eslintrc.js', '.eslintrc.js');
+copyIfMissing('.jsdoc.json', '.jsdoc.json');
 installScripts(pkgJSON, scripts);
 validate.installHooks('pre-commit');
 validate.configureHook('pre-commit', ['validate', 'lint', 'test']);
