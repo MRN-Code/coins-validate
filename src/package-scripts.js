@@ -8,7 +8,7 @@ module.exports = {
   'preversion': 'git checkout master && git pull && npm ls', // eslint-disable-line
   'docs': [ // eslint-disable-line
     'mkdir -p docs &&',
-    'jsdoc -c .jsdoc.json -t ./node_modules/minami -d docs -R README.md -r src/',
+    'jsdoc -c .jsdoc.json src/',
   ].join(' '),
   'deploy-docs': 'gh-pages -d docs && rm -rf docs',
   'postpublish': 'npm run docs && npm run deploy-docs', // eslint-disable-line
