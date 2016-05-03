@@ -16,7 +16,7 @@ const devPackages = [
   'eslint-plugin-react',
   'gh-pages',
   'jsdoc',
-  'istanbul',
+  'nyc',
   'minami',
 ];
 
