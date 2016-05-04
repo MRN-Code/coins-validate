@@ -1,6 +1,6 @@
 {
   "name": "coins-validate",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "configures a package to fall inline with coins standards",
   "main": "src/index.js",
   "repository": {
