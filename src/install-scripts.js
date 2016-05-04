@@ -1,5 +1,5 @@
 'use strict';
-const validate = require('git-validate');
+const uitls = require('./utils');
 /**
  * Installs scripts, if and only if they don't already exist (i.e. no squashing)
  */
@@ -11,7 +11,7 @@ module.exports = (pkgJSON, scripts) => {
     if (scripts.hasOwnProperty(scriptKey)) {
       scriptValue = scripts[scriptKey];
       if (!pkgJSON.scripts[scriptKey]) {
-        validate.installScript(scriptKey, scriptValue);
+        uitls.installScript(scriptKey, scriptValue);
       }
     }
   }

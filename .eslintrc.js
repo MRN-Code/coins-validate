@@ -10,9 +10,11 @@ module.exports = {
     node: true,
     commonjs: true,
     mocha: true,
-    es6: true
+    es6: true,
   },
   rules: {
-    strict: [0, 'global'] // required for node, configurable for browser, https://github.com/eslint/eslint/issues/2785#issuecomment-113254153
+    strict: [0, 'global'], // required for node, configurable for browser, https://github.com/eslint/eslint/issues/2785#issuecomment-113254153
+    'object-shorthand': 0,
+    'no-console': 0,
   }
 };

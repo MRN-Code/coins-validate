@@ -18,15 +18,10 @@ test('copy if missing', t => {
   t.plan(2);
   setup();
   try {
-    // @NOTE it's a little confusing how validate.copy resolves paths. to clarify,
-    // it works as follows:
-    // src path: resolved from the "parent module".  node require system delcares
-    // that when running this test, _this very file_ is the parent module, as this
-    // test has no parent module
-    // dest path: resolved from the top level package root
-
-    // copy template, assert value copied matches expectation
-    cim('templates/test-template.json', 'test/tmp/test-template.json');
+    cim(
+      path.join(__dirname, 'templates/test-template.json'),
+      path.join(__dirname, 'tmp/test-template.json')
+    );
     t.equals(
       getJSONValue(path.resolve(__dirname, './tmp/test-template.json')),
       42,
@@ -34,7 +29,10 @@ test('copy if missing', t => {
     );
 
     // attempt another copy template, assert value not overwritten
-    cim('templates/test-template-2.json', 'test/tmp/test-template.json');
+    cim(
+      path.join(__dirname, 'templates/test-template-2.json'),
+      path.join(__dirname, 'tmp/test-template.json')
+    );
     t.equals(
       getJSONValue(path.resolve(__dirname, './tmp/test-template.json')),
       42,

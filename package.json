@@ -8,7 +8,7 @@
     "url": "git+https://github.com/cdaringe/coins-validate.git"
   },
   "dependencies": {
-    "git-validate": "2.1.4"
+    "commander": "^2.9.0"
   },
   "devDependencies": {
     "eslint": "^2.4.0",
@@ -32,7 +32,8 @@
     "validate": "npm ls",
     "docs": "mkdir -p docs && jsdoc -t ./node_modules/minami -d docs -R README.md -r src/",
     "deploy-docs": "gh-pages -d docs && rm -rf docs",
-    "postpublish": "npm run docs && npm run deploy-docs"
+    "postpublish": "npm run docs && npm run deploy-docs",
+    "postest": "istanbul check --statements 90 --functions 90 --branches 90"
   },
   "author": "cdaringe",
   "license": "ISC",
