@@ -1,7 +1,7 @@
 const lintDirs = 'src/ test/';
 module.exports = {
-  'test': 'istanbul cover test/', // eslint-disable-line
-  'postest': 'istanbul check --statements 90 --functions 90 --branches 90', // eslint-disable-line
+  'test': 'nyc node test/', // eslint-disable-line
+  'postest': 'nyc check-coverage --lines 90 --functions 90 --branches 90', // eslint-disable-line
   'lint': 'eslint ' + lintDirs, // eslint-disable-line
   'lintfix': 'eslint --fix ' + lintDirs, // eslint-disable-line
   'validate': 'npm ls', // eslint-disable-line

@@ -4,6 +4,6 @@ module.exports = [
   'eslint-plugin-react',
   'gh-pages',
   'jsdoc',
-  'istanbul',
+  'nyc',
   'minami',
 ];
