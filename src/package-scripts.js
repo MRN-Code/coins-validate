@@ -1,7 +1,6 @@
 const lintDirs = 'src/ test/';
 module.exports = {
-  'test': 'nyc node test/', // eslint-disable-line
-  'postest': 'nyc check-coverage --lines 90 --functions 90 --branches 90', // eslint-disable-line
+  'test': 'nyc --reporter=lcov --check-coverage --functions=90 --branches=90 node test/', // eslint-disable-line
   'lint': 'eslint ' + lintDirs, // eslint-disable-line
   'lintfix': 'eslint --fix ' + lintDirs, // eslint-disable-line
   'validate': 'npm ls', // eslint-disable-line
