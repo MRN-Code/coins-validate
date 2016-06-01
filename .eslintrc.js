@@ -16,5 +16,6 @@ module.exports = {
     strict: [0, 'global'], // required for node, configurable for browser, https://github.com/eslint/eslint/issues/2785#issuecomment-113254153
     'object-shorthand': 0,
     'no-console': 0,
+    'no-restricted-syntax': 0,
   }
 };
