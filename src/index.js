@@ -1,4 +1,9 @@
 'use strict';
+
+/**
+ * @module coins-validate
+ */
+
 const app = require('./app');
 const utils = require('./utils');
 const path = require('path');
