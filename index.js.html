@@ -60,10 +60,6 @@ copyIfMissing(
   path.resolve(__dirname, '../templates/.eslintrc.js'),
   path.resolve(app.root, '.eslintrc.js')
 );
-copyIfMissing(
-  path.resolve(__dirname, '../templates/.jsdoc.json'),
-  path.resolve(app.root, '.jsdoc.json')
-);
 installScripts(pkgJSON, app.toInstallScripts);
 utils.installHooks('pre-commit');
 utils.configureHook('pre-commit', ['validate', 'lint', 'test']);
