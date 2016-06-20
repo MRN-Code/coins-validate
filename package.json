@@ -20,7 +20,7 @@
     "jsdoc": "^3.4.0",
     "minami": "^1.1.1",
     "nyc": "^6.6.0",
-    "tape": "^4.5.1"
+    "tape": "^4.6.0"
   },
   "scripts": {
     "install": "node bin/install.js && node src/index.js",
